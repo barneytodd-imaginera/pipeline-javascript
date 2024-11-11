@@ -116,7 +116,7 @@ stages:
                     -  **File filename (GitHub):** {{this.filename}}
               {{/forEach}}
               {{/forEach}}
-            # You can add more parameters here to customize the release note
+            # You can add more parameters here to customize the release notes
 
         - publish: $(Build.ArtifactStagingDirectory)/releasenotes.md  # Publish the release notes as an artifact
           artifact: releaseNotes
