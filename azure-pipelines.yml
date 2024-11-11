@@ -39,7 +39,6 @@ stages:
               * **Tags**: {{buildDetails.tags}}
               * **Completed**: {{buildDetails.finishTime}}
               * **Previous Build**: {{compareBuildDetails.buildNumber}}
-
               ## Associated Pull Requests ({{pullRequests.length}})
               {{#forEach pullRequests}}
               * **[{{this.pullRequestId}}]({{replace (replace this.url "_apis/git/repositories" "_git") "pullRequests" "pullRequest"}})** {{this.title}}
@@ -54,7 +53,6 @@ stages:
                   - [{{this.commitId}}]({{this.remoteUrl}}) -  {{this.comment}}
               {{/forEach}}
               {{/forEach}}
-
               # Global list of WI with PRs, parents and children
               {{#forEach this.workItems}}
               {{#if isFirst}}### WorkItems {{/if}}
@@ -103,7 +101,6 @@ stages:
               {{/if}}
               {{/forEach}}
               {{/forEach}}
-
               # Global list of CS ({{commits.length}})
               {{#forEach commits}}
               {{#if isFirst}}### Associated commits{{/if}}
