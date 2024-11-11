@@ -116,6 +116,32 @@ stages:
                     -  **File filename (GitHub):** {{this.filename}}
               {{/forEach}}
               {{/forEach}}
+
+              ## List of WI returned by WIQL ({{queryWorkItems.length}})
+              {{#forEach queryWorkItems}}
+              *  **{{this.id}}** {{lookup this.fields 'System.Title'}}
+              {{/forEach}}
+
+              ## Manual Test Plans
+              | Run ID | Name | State | Total Tests | Passed Tests |
+              | --- | --- | --- | --- | --- |
+              {{#forEach manualTests}}
+              | [{{this.id}}]({{this.webAccessUrl}}) | {{this.name}} | {{this.state}} | {{this.totalTests}} | {{this.passedTests}} |
+              {{/forEach}}
+
+              ## Global list of ConsumedArtifacts ({{consumedArtifacts.length}})
+              | Category | Type | Version Name | Version Id | Commits | Workitems |
+              |-|-|-|-|-|-|
+              {{#forEach consumedArtifacts}}
+              |{{this.artifactCategory}} | {{this.artifactType}} | {{#if versionName}}{{versionName}}{{/if}} | {{truncate versionId 7}} | {{#if this.commits}} {{this.commits.length}} {{/if}} | {{#if this.workitems}} {{this.workitems.length}} {{/if}} |
+              {{/forEach}}
+
+              ## Artifacts published by build ({{publishedArtifacts.length}})
+              | Name| Type |
+              |-|-|-|
+              {{#forEach publishedArtifacts}}
+              |{{this.name}} | {{this.resource.type}} | 
+              {{/forEach}}
             # You can add more parameters here to customize the release note
 
         - publish: $(Build.ArtifactStagingDirectory)/releasenotes.md  # Publish the release notes as an artifact
