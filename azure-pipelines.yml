@@ -38,7 +38,16 @@ stages:
         - task: CmdLine@2
           inputs:
             script: |
-              sleep 60
+              sleep 10
+
+        - script: |
+            echo "Build Reason: $(Build.Reason)"
+            echo "PR ID: $(System.PullRequest.PullRequestId)"
+            echo "Source Branch: $(System.PullRequest.SourceBranch)"
+            echo "Target Branch: $(System.PullRequest.TargetBranch)"
+            echo "Full List of Available Variables:"
+            env  # This will list all environment variables available in the build context
+          displayName: 'Debug PR Information'
 
         - task: XplatGenerateReleaseNotes@4
           displayName: 'Generate Release Notes'
@@ -53,6 +62,20 @@ stages:
               * **Previous Build**: {{compareBuildDetails.buildNumber}}
 
               ## Associated Pull Requests 
+
+              Build Reason: {{Build.Reason}}
+              Pull Request ID: {{System.PullRequest.PullRequestId}}
+              Source Branch: {{System.PullRequest.SourceBranch}}
+              Target Branch: {{System.PullRequest.TargetBranch}}
+
+              {{#if System.PullRequest.PullRequestId}}
+                Pull Request ID: {{System.PullRequest.PullRequestId}}
+                Source Branch: {{System.PullRequest.SourceBranch}}
+                Target Branch: {{System.PullRequest.TargetBranch}}
+              {{else}}
+                <p>No pull request information found</p>
+              {{/if}}
+
               {{#if pullRequests}}
                 {{#if pullRequests.length}}
                   {{#forEach pullRequests}}
