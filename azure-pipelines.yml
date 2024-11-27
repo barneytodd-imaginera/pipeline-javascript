@@ -7,7 +7,6 @@ pr:
   branches:
     include:
       - main  # Trigger the pipeline on PRs targeting the 'main' branch.
-      - feature/*
 
 trigger:
   branches:
@@ -35,6 +34,11 @@ stages:
           inputs:
             command: 'install'  # Install dependencies from package.json
           displayName: 'Install dependencies'
+
+        - task: CmdLine@2
+          inputs:
+            script: |
+              sleep 5
 
         - task: XplatGenerateReleaseNotes@4
           displayName: 'Generate Release Notes'
